@@ -1,0 +1,149 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif; /* Modern font */
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background: #2196F3;  /* Material Design Blue */
+    color: white;
+    padding: 1rem 0;
+}
+
+h1 {
+    font-size: 1.5rem; /* Smaller font size for the header */
+    text-align: center;
+}
+
+footer {
+    background: #2196F3;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+/* Map styling */
+#map {
+    height: 500px;
+    width: 100%;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+}
+
+/* Dropdown container */
+#dropdowns {
+    margin: 20px 0;
+}
+
+/* Styling for the repairer details section */
+#repairer-info {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 263px;
+    right: 20px;
+    width: 300px;
+    z-index: 1000;
+}
+
+#repairer-info h3 {
+    font-size: 1.2rem;
+}
+
+input[type="text"], select {
+    margin-bottom: 20px;
+}
+
+label {
+    color: #555;
+}
+
+.file-field {
+    margin-top: 20px;
+}
+
+/* Button styling */
+.btn {
+    background-color: #2196F3; /* Material Design Blue */
+    color: white;
+}
+
+/* Aesthetic improvements for forms */
+input[type="text"], select, .file-path-wrapper {
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+/* Increase font size for dropdown labels */
+label[for="ward"], label[for="repairer-type"], label[for="travel-mode"] {
+    font-size: 1.2rem;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    #map {
+        height: 400px;
+    }
+
+    .input-field {
+        margin-bottom: 15px;
+    }
+
+    #repairer-info {
+        width: 100%;
+        top: auto;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
+}
+
+#previewContainer {
+    margin-top: 20px;
+}
+
+#thumbnail {
+    max-width: 191px;
+    max-height: 300px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+.required {
+    color: red;
+    font-size: 1em;
+    margin-left: 2px;
+}
+
+.resetrepairers{
+    position: absolute;
+    top: 159px;
+    right: 6px;
+    padding: 10px;
+    border-radius: 15px;
+    color: black;
+    background-color: darkgrey;
+}
+
+
+
+
+

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Fonts for modern font styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <!-- Materialize CSS for Material Design components -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Google Maps API -->
+    <script src="https://unpkg.com/@googlemaps/marker@latest/dist/index.min.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FixItLocal</title>
+    <link rel="stylesheet" href="ui.css">
+</head>
+<body>
+    <header>
+        <h1 class="center-align" style="font-size: 1.5rem;">Find Repairers Near You</h1>
+    </header>
+    <main>
+        <!-- Dropdowns for selecting ward, repairer type, and travel mode -->
+        <div id="dropdowns" class="container">
+            <div class="row">
+                <div class="input-field col s12 m4">
+                    <select id="ward" onchange="updateRepairerTypes()">
+                        <option value="">--Select Ward--</option>
+                    </select>
+                    <label for="ward">Select Ward</label>
+                </div>
+                <div class="input-field col s12 m4">
+                    <select id="repairer-type" disabled onchange="fetchRepairers()">
+                        <option value="">--Select Repairer Type--</option>
+                    </select>
+                    <label for="repairer-type">Select Repairer Type</label>
+                </div>
+                <div class="input-field col s12 m4">
+                    <select id="travel-mode" onchange="updateTravelMode()">
+                        <option value="DRIVING">Driving</option>
+                        <option value="WALKING">Walking</option>
+                        <option value="TRANSIT">Transit</option>
+                    </select>
+                    <label for="travel-mode">Select Mode of Travel</label>
+                </div>
+            </div>
+            <button type="reset" class="resetrepairers" onclick="repairerFormreset()">Reset Selection</button>
+        </div>
+
+        <!-- Google Map -->
+        <div id="map"></div>
+        <div id="add-repairer-form" class="container">
+            <h3>Add new repairer</h3>
+            <form id="repairerForm">
+                <div class="input-field">
+                    <input type="text" id="repairer-name" name="repairer-name" required>
+                    <label for="repairer-name">Repairer Shop Name <span class="required">*</span></label>
+                </div>
+                <div class="input-field">
+                    <input type="text" id="repairerType" name="repairerType" required>
+                    <label for="repairerType">Repairer Type <span class="required">*</span></label>
+                </div>
+                <div class="input-field">
+                    <input type="text" id="contact-number" name="contact-number">
+                    <label for="contact-number">Contact Number</label>
+                </div>
+                <div class="input-field">
+                    <input type="text" id="address" name="address" required>
+                    <label for="address">Address <span class="required">*</span></label>
+                </div>
+                <div class="input-field">
+                    <input type="text" id="services-provided" name="services-provided" required>
+                    <label for="services-provided">Services Provided <span class="required">*</span></label>
+                </div>
+                <div class="input-field">
+                    <input type="text" id="average-price" name="average-price">
+                    <label for="average-price">Average Price</label>
+                </div>
+                <div class="input-field">
+                    <input type="text" id="average-time" name="average-time">
+                    <label for="average-time">Average Time Taken</label>
+                </div>
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>Upload Photo</span>
+                        <input type="file" id="repairer-photo" name="repairer-photo" accept="image/*">
+                        <div id="previewContainer">
+                            <img id="thumbnail" src="" alt="Thumbnail Preview" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text" />
+                    </div>
+                </div>
+                <button type="submit" class="btn waves-effect waves-light">Submit Repairer</button>
+            </form>
+        </div>
+
+        <!-- Repairer details display area -->
+        <div id="repairer-info" class="container" style="display: none;">
+            <h3 style="font-size: 1.2rem;">Repairer Information</h3>
+            <p id="details"></p>
+            <p id="travel-info"></p>
+        </div>        
+
+         <!-- Repairer details display area -->
+         <div id="repairers-details" class="container-repairers-details">
+            <h3 style="font-size: 1.2rem;">Repairer Details</h3>
+            <p id="Name Of Shop"></p>
+            <p id="Type Of Repairer"></p>
+            <p id="Contact Number"></p>
+            <p id="Contact Address"></p>
+            <p id="Services Provided"></p>
+            <p id="Average Price"></p>
+            <p id="Average Time"></p>
+        </div>
+
+        <!-- Form to add new repairer data -->
+       <!--  <div id="add-repairer-form" class="container">
+            <h3>Submit a New Repairer</h3>
+            <form id="repairerForm">
+                <div class="input-field">
+                    <input type="text" id="repairer-name" name="repairer-name" required>
+                    <label for="repairer-name">Repairer Name</label>
+                </div>
+                <div class="input-field">
+                    <input type="text" id="repairer-type" name="repairer-type" required>
+                    <label for="repairer-type">Repairer Type</label>
+                </div>
+                <div class="input-field">
+                    <input type="text" id="contact-number" name="contact-number" required>
+                    <label for="contact-number">Contact Number</label>
+                </div>
+                <div class="input-field">
+                    <input type="text" id="services-provided" name="services-provided" required>
+                    <label for="services-provided">Services Provided</label>
+                </div>
+                <div class="input-field">
+                    <input type="text" id="average-price" name="average-price" required>
+                    <label for="average-price">Average Price</label>
+                </div>
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>Upload Photo</span>
+                        <input type="file" id="repairer-photo" name="repairer-photo" accept="image/*">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text" />
+                    </div>
+                </div>
+                <button type="submit" class="btn waves-effect waves-light">Submit Repairer</button>
+            </form>
+        </div> -->
+    </main>
+
+    <footer class="center-align">
+        <p>© FixItLocal </p>
+    </footer>
+
+    <!-- Google Maps API Script -->
+    <script src="scripts.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPNe0RKk3YlqvBDpsZ_beIS5mG1Z6Joio&libraries=places&callback=initMap"></script>
+
+    <!-- Materialize JavaScript for components like dropdowns -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
